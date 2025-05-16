@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide Data Science pour Débutants</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        
+        :root {
+            --blue: #2563eb;
+            --blue-light: #dbeafe;
+            --green: #10b981;
+            --green-light: #d1fae5;
+            --purple: #8b5cf6;
+            --purple-light: #ede9fe;
+            --orange: #f59e0b;
+            --orange-light: #fef3c7;
+            --red: #ef4444;
+            --red-light: #fee2e2;
+            --dark: #1f2937;
+            --gray: #6b7280;
+            --light-gray: #f3f4f6;
+            --white: #ffffff;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            margin: 0;
+            padding: 0;
+            background-color: var(--white);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-radius: 0 0 20px 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-weight: 300;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Stylisation des titres avec icônes */
+        h2 {
+            color: var(--blue);
+            border-bottom: 2px solid var(--blue-light);
+            padding-bottom: 0.8rem;
+            margin-top: 3rem;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+        }
+        
+        h2::before {
+            content: "📊 ";
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+        
+        h2#introduction::before { content: "📘 "; }
+        h2#analyse::before { content: "📈 "; }
+        h2#nettoyage::before { content: "🧹 "; }
+        h2#coherence::before { content: "🧩 "; }
+        h2#profiling::before { content: "🔎 "; }
+        h2#qualite::before { content: "🌟 "; }
+        h2#desequilibres::before { content: "⚖️ "; }
+        h2#visualisation::before { content: "📊 "; }
+        h2#ouverture::before { content: "🚀 "; }
+        
+        h3 {
+            color: var(--purple);
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+        
+        h3::before {
+            content: "🔹 ";
+            margin-right: 8px;
+        }
+        
+        h4 {
+            color: var(--green);
+            font-weight: 500;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+        
+        ul, ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Tableaux */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 0.8rem;
+            border: 1px solid #e5e7eb;
+        }
+        
+        th {
+            background-color: var(--blue);
+            color: white;
+            font-weight: 500;
+            text-align: left;
+        }
+        
+        tr:nth-child(even) {
+            background-color: var(--light-gray);
+        }
+        
+        /* Conseils pour débutants */
+        .conseil-debutant {
+            background-color: var(--orange-light);
+            border-left: 4px solid var(--orange);
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        
+        .conseil-debutant::before {
+            content: "💡 Conseil pour débutant";
+            font-weight: 600;
+            color: var(--orange);
+            display: block;
+            margin-bottom: 0.8rem;
+        }
+        
+        /* Notes importantes */
+        .note-importante {
+            background-color: var(--blue-light);
+            border-left: 4px solid var(--blue);
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .note-importante::before {
+            content: "📝 Note importante";
+            font-weight: 600;
+            color: var(--blue);
+            display: block;
+            margin-bottom: 0.8rem;
+        }
+        
+        /* Points d'attention */
+        .point-attention {
+            background-color: var(--red-light);
+            border-left: 4px solid var(--red);
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .point-attention::before {
+            content: "⚠️ Point d'attention";
+            font-weight: 600;
+            color: var(--red);
+            display: block;
+            margin-bottom: 0.8rem;
+        }
+        
+        /* Bonnes pratiques */
+        .bonne-pratique {
+            background-color: var(--green-light);
+            border-left: 4px solid var(--green);
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .bonne-pratique::before {
+            content: "✅ Bonne pratique";
+            font-weight: 600;
+            color: var(--green);
+            display: block;
+            margin-bottom: 0.8rem;
+        }
+        
+        .toc {
+            background-color: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .toc h2 {
+            margin-top: 0;
+            border-bottom: none;
+            color: var(--dark);
+        }
+        
+        .toc h2::before {
+            content: "📑 ";
+        }
+        
+        .toc ul {
+            list-style-type: none;
+            padding-left: 1rem;
+        }
+        
+        .toc li {
+            margin-bottom: 0.75rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .toc li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--blue);
+        }
+        
+        .toc a {
+            text-decoration: none;
+            color: var(--blue);
+            transition: color 0.2s;
+        }
+        
+        .toc a:hover {
+            color: var(--purple);
+            text-decoration: underline;
+        }
+        
+        hr {
+            border: 0;
+            height: 1px;
+            background-color: #e5e7eb;
+            margin: 2.5rem 0;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem 0;
+            color: var(--gray);
+            font-style: italic;
+            border-top: 1px solid #e5e7eb;
+            background-color: var(--light-gray);
+        }
+        
+        /* Exemple de code ou de données */
+        .code-example {
+            background-color: var(--light-gray);
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            margin: 1.5rem 0;
+        }
+        
+        /* Pour l'impression PDF */
+        @media print {
+            body {
+                font-size: 12pt;
+            }
+            
+            .container {
+                max-width: 100%;
+                padding: 1rem;
+            }
+            
+            header {
+                padding: 2rem 0;
+            }
+            
+            .toc {
+                break-after: page;
+            }
+            
+            h2 {
+                break-before: page;
+                margin-top: 1rem;
+            }
+            
+            table {
+                break-inside: avoid;
+            }
+            
+            .conseil-debutant, .note-importante, .point-attention, .bonne-pratique {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Qualité et Gouvernance des Données</h1>
+            <div class="subtitle">Guide pratique pour comprendre les fondamentaux de la data science</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="toc">
+            <h2>Sommaire</h2>
+            <ul>
+                <li><a href="#introduction">Introduction aux données</a></li>
+                <li><a href="#analyse">Analyse descriptive des données</a></li>
+                <li><a href="#nettoyage">Nettoyage et préparation des données</a></li>
+                <li><a href="#coherence">Cohérence et intégrité des données</a></li>
+                <li><a href="#profiling">Data Profiling et Gouvernance des Données</a></li>
+                <li><a href="#qualite">Évaluation de la qualité des données</a></li>
+                <li><a href="#desequilibres">Déséquilibres et biais dans les données</a></li>
+                <li><a href="#visualisation">Visualisation des données et Data Storytelling</a></li>
+                <li><a href="#ouverture">Ouverture vers des analyses avancées</a></li>
+            </ul>
+        </div>
+
+        <section id="introduction">
+            <h2>Introduction aux données</h2>
+
+            <h3>Qu'est-ce qu'un dataset ?</h3>
+            <p>Un dataset (jeu de données) est comparable à une feuille Excel ou une table dans une base de données. C'est la matière première de tout projet d'analyse de données.</p>
+            
+            <p>Il se compose de :</p>
+            <ul>
+                <li><strong>Lignes :</strong> chaque ligne correspond à une observation ou un individu. Par exemple, une personne dans une enquête, une transaction bancaire, ou un article de blog.</li>
+                <li><strong>Colonnes :</strong> chaque colonne représente une variable ou une caractéristique. Par exemple, le nom de la personne, son âge, son genre, etc.</li>
+            </ul>
+
+            <h4>Exemple de dataset :</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Âge</th>
+                        <th>Genre</th>
+                        <th>Aime les chats</th>
+                        <th>Date d'inscription</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Alice</td>
+                        <td>25</td>
+                        <td>F</td>
+                        <td>Oui</td>
+                        <td>2023-01-12</td>
+                    </tr>
+                    <tr>
+                        <td>Bob</td>
+                        <td>32</td>
+                        <td>M</td>
+                        <td>Non</td>
+                        <td>2022-09-30</td>
+                    </tr>
+                    <tr>
+                        <td>Charlie</td>
+                        <td>29</td>
+                        <td>M</td>
+                        <td>Oui</td>
+                        <td>2023-03-05</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Typologie des données</h3>
+            <p>Il existe plusieurs types de données que l'on retrouve fréquemment dans un dataset. Bien les comprendre permet de mieux les traiter et les analyser.</p>
+
+            <h4>1. Données numériques</h4>
+            <p>Ce sont des données quantitatives sur lesquelles on peut effectuer des calculs.</p>
+            <ul>
+                <li><strong>Exemples :</strong> âge, taille, revenu, température, nombre d'amis</li>
+                <li><strong>Avantage :</strong> On peut calculer moyenne, écart-type, etc.</li>
+            </ul>
+
+            <h4>2. Données catégorielles (ou qualitatives)</h4>
+            <p>Des données qui représentent des catégories ou des valeurs distinctes, sans ordre logique (dans certains cas).</p>
+            <ul>
+                <li><strong>Exemples :</strong> couleur préférée (rouge, bleu, vert), pays (France, Espagne), type de produit (alimentaire, vestimentaire)</li>
+                <li>Elles peuvent être :
+                    <ul>
+                        <li><strong>Nominales :</strong> sans ordre (ex : couleur, pays)</li>
+                        <li><strong>Ordinales :</strong> avec un ordre (ex : note faible/moyenne/élevée)</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h4>3. Données booléennes</h4>
+            <p>Elles ne prennent que deux valeurs : vrai/faux, oui/non, 1/0.</p>
+            <ul>
+                <li><strong>Exemples :</strong> "Aime les chats ?" → Oui ou Non</li>
+                <li>Très utiles pour les filtres et conditions</li>
+            </ul>
+
+            <h4>4. Données textuelles</h4>
+            <p>Des chaînes de caractères libres.</p>
+            <ul>
+                <li><strong>Exemples :</strong> nom, commentaire client, description d'un produit</li>
+                <li>Plus complexes à analyser car non structurées</li>
+            </ul>
+
+            <h4>5. Données temporelles</h4>
+            <p>Des données liées au temps : dates, heures, durées.</p>
+            <ul>
+                <li><strong>Exemples :</strong> date de naissance, heure de connexion, temps passé sur une page</li>
+                <li>On peut en extraire : jour, mois, année, saison, délai entre deux dates...</li>
+            </ul>
+
+            <div class="conseil-debutant">
+                <p>Quand vous découvrez un dataset pour la première fois, posez-vous systématiquement ces questions :</p>
+                <ul>
+                    <li>Qu'est-ce que chaque colonne représente exactement ?</li>
+                    <li>Quel est le type de donnée utilisé pour chaque variable ?</li>
+                    <li>Peut-on faire des calculs avec cette variable ?</li>
+                    <li>Y a-t-il un ordre ou une hiérarchie dans les valeurs possibles ?</li>
+                </ul>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="analyse">
+            <h2>Analyse descriptive des données</h2>
+
+            <h3>Statistiques de base</h3>
+            <p>Quand on récupère un dataset, la première étape consiste à le résumer avec des statistiques descriptives. Cela permet d'avoir une vue d'ensemble rapide sur les données numériques.</p>
+            
+            <h4>Principales mesures :</h4>
+            <ul>
+                <li><strong>Moyenne (ou moyenne arithmétique) :</strong> la somme de toutes les valeurs divisée par le nombre de valeurs.<br>
+                <em>Exemple : la moyenne d'âge de 4 personnes ayant 20, 25, 30, 35 ans = (20+25+30+35)/4 = 27,5</em></li>
+                
+                <li><strong>Médiane :</strong> la valeur au centre d'une série triée.<br>
+                <em>Exemple : si on a 5 âges : 18, 20, 23, 24, 27 → la médiane est 23.</em></li>
+                
+                <li><strong>Mode :</strong> la valeur la plus fréquente.<br>
+                <em>Exemple : dans [bleu, rouge, rouge, vert], le mode = rouge.</em></li>
+                
+                <li><strong>Minimum et maximum :</strong> les valeurs extrêmes.<br>
+                <em>Exemple : âge min = 18, âge max = 60</em></li>
+                
+                <li><strong>Écart-type :</strong> mesure de la dispersion autour de la moyenne. Plus il est grand, plus les valeurs sont éloignées les unes des autres.</li>
+            </ul>
+
+            <h3>Distribution et dispersion</h3>
+            <p>Ici, on cherche à comprendre comment les données sont réparties.</p>
+            
+            <h4>Outils et notions :</h4>
+            <ul>
+                <li><strong>Histogrammes :</strong> des barres pour représenter combien de fois chaque valeur (ou groupe de valeurs) apparaît.<br>
+                <em>Exemple : un histogramme de salaires permet de voir combien de personnes gagnent entre 1000–2000€, 2000–3000€, etc.</em></li>
+                
+                <li><strong>Boxplots (ou boîtes à moustaches) :</strong><br>
+                Permettent de visualiser :
+                    <ul>
+                        <li>la médiane</li>
+                        <li>les quartiles (25%, 75%)</li>
+                        <li>les valeurs extrêmes (outliers)</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Quartiles / Percentiles :</strong> découpent les données en tranches égales.
+                    <ul>
+                        <li>Quartile 1 = 25% des valeurs sont en dessous</li>
+                        <li>Quartile 3 = 75% des valeurs sont en dessous</li>
+                        <li>Percentile 90 = 90% des valeurs sont inférieures à cette valeur</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Valeurs aberrantes (outliers) :</strong> points très éloignés du reste des données.<br>
+                <em>Exemple : si la majorité des revenus sont entre 1000€ et 4000€, un revenu de 50 000€ est un outlier.</em></li>
+            </ul>
+
+            <div class="bonne-pratique">
+                <p>Pour une analyse efficace :</p>
+                <ul>
+                    <li>Commencez toujours par analyser les données numériques avec des statistiques de base avant d'aller plus loin.</li>
+                    <li>Visualisez les distributions pour repérer des phénomènes invisibles avec de simples chiffres (comme une distribution bimodale).</li>
+                    <li>Utilisez les boxplots pour identifier rapidement les anomalies et valeurs aberrantes.</li>
+                </ul>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="nettoyage">
+            <h2>Nettoyage et préparation des données</h2>
+
+            <h3>Valeurs manquantes et dupliquées</h3>
+            
+            <h4>Valeurs manquantes (missing values)</h4>
+            <p>Ce sont les cases vides ou contenant des données non renseignées.</p>
+            
+            <p><strong>Pourquoi c'est un problème ?</strong></p>
+            <ul>
+                <li>Elles peuvent fausser les moyennes et analyses</li>
+                <li>Les modèles de machine learning ne les acceptent souvent pas sans traitement</li>
+            </ul>
+            
+            <p><strong>Que faire avec ?</strong></p>
+            <ul>
+                <li>Supprimer les lignes/colonnes trop incomplètes</li>
+                <li>Imputer (remplir) avec :
+                    <ul>
+                        <li>La moyenne ou la médiane (pour des nombres)</li>
+                        <li>La valeur la plus fréquente (pour du texte/catégories)</li>
+                        <li>Une valeur spéciale comme "Inconnu" ou "NA"</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h4>Valeurs dupliquées</h4>
+            <p>Des lignes identiques ou très similaires qui peuvent biaiser l'analyse si on pense qu'il s'agit d'observations différentes.</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Âge</th>
+                        <th>Ville</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Alice</td>
+                        <td>25</td>
+                        <td>Paris</td>
+                    </tr>
+                    <tr>
+                        <td>Alice</td>
+                        <td>25</td>
+                        <td>Paris</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p><strong>Solution :</strong> Supprimer les doublons avec un outil comme Excel ou Python (<code>drop_duplicates()</code>)</p>
+
+            <h3>Standardisation et formatage</h3>
+            <p>Pour que les données soient cohérentes, il faut harmoniser leur forme et leur écriture.</p>
+            
+            <h4>Standardiser les formats :</h4>
+            <ul>
+                <li><strong>Dates</strong> → toutes au même format : JJ/MM/AAAA ou AAAA-MM-JJ</li>
+                <li><strong>Nombres</strong> → mêmes unités : pas de mélange entre "cm" et "m"</li>
+                <li><strong>Texte</strong> → même casse : tout en minuscule ou majuscule
+                    <br><em>Exemple : "paris", "Paris", "PARIS" = même ville, donc à harmoniser</em>
+                </li>
+            </ul>
+            
+            <h4>Encodage des variables :</h4>
+            <p>Quand on veut utiliser des catégories (ex : "Femme", "Homme") dans un modèle, il faut les transformer en chiffres.</p>
+            
+            <p><strong>Exemples d'encodage :</strong></p>
+            <ul>
+                <li><strong>Label encoding :</strong>
+                    <ul>
+                        <li>"Homme" → 0</li>
+                        <li>"Femme" → 1</li>
+                    </ul>
+                </li>
+                <li><strong>One-hot encoding :</strong> Créer une colonne par catégorie, avec 1 ou 0</li>
+            </ul>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Homme</th>
+                        <th>Femme</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="point-attention">
+                <p>Le nettoyage peut représenter jusqu'à 80% du temps d'un projet data. C'est normal et nécessaire !</p>
+                <p>Surveillez particulièrement :</p>
+                <ul>
+                    <li>Les doublons et les cases vides qui biaisent les analyses</li>
+                    <li>Les problèmes de casse et de format qui empêchent les regroupements</li>
+                    <li>Les fautes de frappe dans les textes qui créent des catégories artificielles</li>
+                </ul>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="coherence">
+            <h2>Cohérence et intégrité des données</h2>
+
+            <h3>Détection des incohérences</h3>
+            <p>Une incohérence est une erreur logique ou une contradiction dans les données.</p>
+            
+            <h4>Exemples classiques :</h4>
+            <ul>
+                <li>Une personne de 5 ans avec un métier renseigné</li>
+                <li>Une date de naissance dans le futur</li>
+                <li>Un client marqué comme "Marié" mais "Âge = 8"</li>
+            </ul>
+            
+            <h4>Outils pour détecter les incohérences :</h4>
+            <ul>
+                <li><strong>Règles logiques :</strong> Si âge < 18 alors "travail = non"</li>
+                <li><strong>Croisements de colonnes :</strong> vérifier que certaines valeurs sont compatibles</li>
+                <li><strong>Valeurs aberrantes :</strong> parfois des erreurs de saisie (ex : "450 ans")</li>
+            </ul>
+
+            <h3>Respect des contraintes et relations</h3>
+            <p>L'intégrité des données garantit la cohérence dans les relations.</p>
+            
+            <ul>
+                <li><strong>Contraintes de type :</strong> chaque colonne doit contenir des données du bon type.
+                <br><em>Exemple : une colonne "Âge" doit contenir des chiffres, pas du texte.</em></li>
+                
+                <li><strong>Contraintes de domaine :</strong> les valeurs doivent appartenir à un ensemble autorisé.
+                <br><em>Exemple : genre = Homme / Femme / Autre. Si on trouve "Crocodile", c'est suspect.</em></li>
+                
+                <li><strong>Clés primaires (ID uniques) :</strong> chaque individu (ligne) doit avoir un identifiant unique.
+                <br><em>Exemple : deux clients ne peuvent pas avoir le même "ID_client".</em></li>
+                
+                <li><strong>Clés étrangères :</strong> relation entre deux tables (comme dans une base de données).
+                <br><em>Exemple : chaque "commande" doit être reliée à un "client" qui existe.</em></li>
+            </ul>
+
+            <h3>Traçabilité des modifications</h3>
+            <p>Savoir qui a modifié quoi, quand et pourquoi permet de :</p>
+            <ul>
+                <li>Revenir en arrière en cas d'erreur</li>
+                <li>Comprendre l'origine d'un problème</li>
+                <li>Collaborer sereinement à plusieurs</li>
+            </ul>
+            
+            <h4>Outils :</h4>
+            <ul>
+                <li>Historique des modifications (logs)</li>
+                <li>Versioning : garder différentes versions des fichiers</li>
+                <li>Commentaires/documentation : noter les raisons d'un changement</li>
+            </ul>
+
+            <div class="conseil-debutant">
+                <p>Adoptez une approche de détective des données :</p>
+                <ul>
+                    <li>Recherchez activement les contradictions entre les différentes informations</li>
+                    <li>Ne vous fiez pas uniquement à l'apparence des données, testez leur logique interne</li>
+                    <li>Documentez systématiquement vos actions lorsque vous modifiez un jeu de données</li>
+                </ul>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="profiling">
+            <h2>Data Profiling et Gouvernance des Données</h2>
+
+            <h3>Data Profiling (Profilage des données)</h3>
+            <p>Le profilage des données consiste à analyser un jeu de données en profondeur pour comprendre sa structure, sa qualité, et ses problèmes potentiels avant de l'utiliser.</p>
+            
+            <h4>Objectifs principaux :</h4>
+            <ul>
+                <li>Identifier les types de données (numérique, texte, etc.)</li>
+                <li>Vérifier la disponibilité (valeurs manquantes)</li>
+                <li>Mesurer la distribution des valeurs</li>
+                <li>Trouver les doublons, incohérences, valeurs aberrantes</li>
+                <li>Calculer les statistiques de base (moyenne, max, min…)</li>
+            </ul>
+            
+            <h4>Outils courants pour le profiling :</h4>
+            <ul>
+                <li>Excel (statistiques de base, filtres)</li>
+                <li>Python (pandas)</li>
+                <li>Outils BI : Talend Data Profiler, OpenRefine, etc.</li>
+            </ul>
+            
+            <h4>Exemple :</h4>
+            <p>Sur une colonne "âge" :</p>
+            <ul>
+                <li>Type détecté : numérique</li>
+                <li>Valeurs manquantes : 3</li>
+                <li>Min : 12, Max : 99</li>
+                <li>Moyenne : 35,5</li>
+                <li>Valeurs aberrantes : 1 (âge = 154)</li>
+            </ul>
+
+            <h3>Data Governance (Gouvernance des données)</h3>
+            <p>La gouvernance des données, c'est l'ensemble des règles, pratiques et rôles mis en place pour garantir que les données soient fiables, sécurisées, accessibles et bien utilisées.</p>
+            
+            <h4>Ses piliers principaux :</h4>
+            <ol>
+                <li><strong>Qualité des données</strong>
+                    <ul>
+                        <li>Les données doivent être exactes, complètes, cohérentes.</li>
+                    </ul>
+                </li>
+                <li><strong>Sécurité et confidentialité</strong>
+                    <ul>
+                        <li>Protection des données sensibles (ex : données personnelles, santé)</li>
+                        <li>Respect du RGPD</li>
+                    </ul>
+                </li>
+                <li><strong>Responsabilités claires</strong>
+                    <ul>
+                        <li>Qui est propriétaire de chaque donnée ?</li>
+                        <li>Qui peut la modifier, la consulter ?</li>
+                    </ul>
+                </li>
+                <li><strong>Traçabilité et documentation</strong>
+                    <ul>
+                        <li>D'où vient la donnée ? Qui l'a transformée ? Quand ?</li>
+                        <li>Important pour les audits et la conformité</li>
+                    </ul>
+                </li>
+                <li><strong>Accès maîtrisé</strong>
+                    <ul>
+                        <li>Tous les utilisateurs n'ont pas besoin des mêmes données.</li>
+                        <li>On limite l'accès selon les rôles (principe du "moindre privilège").</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <div class="conseil-debutant">
+                <p>Pour bien démarrer avec le data profiling et la gouvernance :</p>
+                <ul>
+                    <li>Le data profiling est votre premier réflexe en découvrant un dataset.</li>
+                    <li>La gouvernance, c'est comme le code de la route : ça vous évite les accidents de données.</li>
+                    <li>Même un petit fichier Excel mérite d'être bien organisé et documenté !</li>
+                </ul>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="qualite">
+            <h2>Évaluation de la qualité des données</h2>
+
+            <h3>Définir la qualité des données</h3>
+            <p>La qualité des données, c'est leur capacité à être utiles, fiables et pertinentes pour un usage donné. Même des données "correctes" peuvent être inutiles si elles ne sont pas adaptées au besoin !</p>
+
+            <h3>Dimensions de la qualité</h3>
+            
+            <h4>1. Exactitude</h4>
+            <p>Les données reflètent-elles la réalité ?</p>
+            <ul>
+                <li>Ex : Le numéro de téléphone d'un client est bien le bon.</li>
+                <li>Ex : L'adresse postale correspond bien au client.</li>
+            </ul>
+            <p><strong>Astuce :</strong> Vérifiez avec des sources officielles ou croisées.</p>
+            
+            <h4>2. Complétude</h4>
+            <p>Y a-t-il des valeurs manquantes ou des champs vides ?</p>
+            <ul>
+                <li>Ex : Si 40% des lignes n'ont pas d'adresse email, c'est problématique.</li>
+                <li>On peut fixer un seuil acceptable de données manquantes (ex : 5%).</li>
+            </ul>
+            
+            <h4>3. Cohérence</h4>
+            <p>Les données sont-elles logiquement compatibles entre elles ?</p>
+            <ul>
+                <li>Ex : Un client "né en 2005" et "marié depuis 2000" = incohérent</li>
+                <li>Ex : Un produit dans une catégorie "Inconnue" = suspect</li>
+            </ul>
+            
+            <h4>4. Actualité (fraîcheur)</h4>
+            <p>Les données sont-elles à jour ?</p>
+            <ul>
+                <li>Ex : Une base client avec des données de 2016 n'est probablement plus d'actualité.</li>
+                <li>Certaines données évoluent vite (ex : statut d'un colis, solde bancaire).</li>
+            </ul>
+            
+            <h4>5. Unicité</h4>
+            <p>Y a-t-il des doublons ?</p>
+            <ul>
+                <li>Ex : Même client enregistré deux fois avec des identifiants différents.</li>
+                <li>Cela peut biaiser les analyses et le ciblage marketing.</li>
+            </ul>
+            
+            <h4>6. Accessibilité et compréhensibilité</h4>
+            <p>Les données sont-elles facilement lisibles et utilisables ?</p>
+            <ul>
+                <li>Ex : Des noms de colonnes clairs ("date_naissance" au lieu de "col_05")</li>
+                <li>Une documentation aide à comprendre l'origine et l'usage des colonnes</li>
+            </ul>
+
+            <h3>Indicateurs et scoring de qualité</h3>
+            <p>On peut attribuer des scores de qualité à un dataset ou à chaque colonne, selon les dimensions ci-dessus.</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Colonne</th>
+                        <th>Complétude</th>
+                        <th>Exactitude</th>
+                        <th>Cohérence</th>
+                        <th>Score global</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>nom_client</td>
+                        <td>100%</td>
+                        <td>✅</td>
+                        <td>✅</td>
+                        <td>100%</td>
+                    </tr>
+                    <tr>
+                        <td>email</td>
+                        <td>85%</td>
+                        <td>❓</td>
+                        <td>✅</td>
+                        <td>70%</td>
+                    </tr>
+                    <tr>
+                        <td>date_inscription</td>
+                        <td>100%</td>
+                        <td>✅</td>
+                        <td>❌</td>
+                        <td>75%</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Ce type d'analyse permet de prioriser les colonnes à corriger ou surveiller.</p>
+
+            <div class="bonne-pratique">
+                <p>Pour évaluer efficacement la qualité des données :</p>
+                <ul>
+                    <li>Toutes les données ne sont pas utiles, mais toutes les données utilisées doivent être de qualité.</li>
+                    <li>Évaluez la qualité avant de faire une analyse, sinon vous risquez de tirer de mauvaises conclusions.</li>
+                    <li>Même une mauvaise qualité peut être gérée, si elle est connue et mesurée.</li>
+                </ul>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="desequilibres">
+            <h2>Déséquilibres et biais dans les données</h2>
+
+            <h3>Détection de classes déséquilibrées</h3>
+            <p>Un dataset est déséquilibré quand certaines valeurs d'une variable cible (souvent catégorielle) sont très minoritaires par rapport à d'autres.</p>
+            
+            <h4>Exemple concret :</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Résultat (colonne "malade")</th>
+                        <th>Nombre de cas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Non malade</td>
+                        <td>980</td>
+                    </tr>
+                    <tr>
+                        <td>Malade</td>
+                        <td>20</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Ici, "malade" représente seulement 2% des données.</p>
+            
+            <div class="point-attention">
+                <p>Pourquoi c'est un problème ?</p>
+                <p>Un modèle pourrait prédire "Non malade" 100% du temps et avoir 98% de "précision"... Mais il ne détectera jamais les cas malades, donc le modèle est inutile pour la médecine.</p>
+            </div>
+
+            <h3>Rééquilibrage des données</h3>
+            <p>Pour aider les modèles à mieux apprendre les classes rares, on peut équilibrer les données.</p>
+            
+            <h4>Méthodes principales :</h4>
+            <ol>
+                <li><strong>Oversampling (suréchantillonnage)</strong>
+                    <p>On augmente artificiellement le nombre d'exemples de la classe minoritaire.</p>
+                    <ul>
+                        <li><strong>SMOTE</strong> (Synthetic Minority Over-sampling Technique) :<br>
+                        Crée de nouvelles observations synthétiques proches des vraies (pas juste des copies).</li>
+                        <li><em>Ex : si on a 20 malades, SMOTE peut en générer 100 similaires pour équilibrer.</em></li>
+                    </ul>
+                </li>
+                <li><strong>Undersampling (sous-échantillonnage)</strong>
+                    <p>On réduit le nombre de cas dans la classe majoritaire pour rééquilibrer.</p>
+                    <ul>
+                        <li><em>Ex : Prendre un échantillon de 100 non-malades sur les 980 pour que les 100 malades aient plus de poids.</em></li>
+                        <li>⚠️ Risque : perte d'information (on jette des données !)</li>
+                    </ul>
+                </li>
+            </ol>
+            
+            <h4>Autres astuces :</h4>
+            <ul>
+                <li><strong>Rééchantillonnage combiné :</strong> mix entre over et under sampling.</li>
+                <li><strong>Pondération dans le modèle :</strong> on dit au modèle de "donner plus d'importance" à la classe minoritaire.</li>
+                <li><strong>Choix des métriques adaptées :</strong> Utiliser Recall, Precision, F1-score plutôt qu'accuracy.</li>
+            </ul>
+
+            <div class="conseil-debutant">
+                <p>Pour gérer efficacement les déséquilibres dans les données :</p>
+                <ul>
+                    <li>Toujours vérifier la répartition des classes avant d'entraîner un modèle.</li>
+                    <li>Un dataset équilibré ≠ meilleure performance brute, mais souvent meilleure détection des cas critiques.</li>
+                    <li>La qualité du rééquilibrage dépend du domaine (ex : fraudes, santé, satisfaction client…).</li>
+                </ul>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="visualisation">
+            <h2>Visualisation des données et Data Storytelling</h2>
+
+            <h3>Objectifs de la visualisation</h3>
+            <p>Visualiser les données permet de :</p>
+            <ul>
+                <li>Comprendre rapidement une tendance, une anomalie ou une relation.</li>
+                <li>Communiquer efficacement un message à un public non technique.</li>
+                <li>Vérifier la cohérence des analyses.</li>
+            </ul>
+            <p>Exemple : Une courbe peut révéler une saisonnalité que des chiffres seuls ne montrent pas. Un nuage de points peut montrer une corrélation entre deux variables.</p>
+
+            <h3>Types de visualisations utiles</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Objectif</th>
+                        <th>Type de graphique</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Répartition</td>
+                        <td>Histogramme, camembert</td>
+                    </tr>
+                    <tr>
+                        <td>Comparaison</td>
+                        <td>Diagramme en barres</td>
+                    </tr>
+                    <tr>
+                        <td>Corrélation</td>
+                        <td>Nuage de points (scatter plot)</td>
+                    </tr>
+                    <tr>
+                        <td>Évolution dans le temps</td>
+                        <td>Courbe (line chart)</td>
+                    </tr>
+                    <tr>
+                        <td>Valeurs extrêmes</td>
+                        <td>Boxplot</td>
+                    </tr>
+                    <tr>
+                        <td>Données manquantes</td>
+                        <td>Heatmap</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Outils recommandés</h3>
+            <ul>
+                <li><strong>Excel :</strong> accessible et suffisant pour des visualisations simples</li>
+                <li><strong>Tableau / Power BI :</strong> puissants, interactifs, orientés business</li>
+                <li><strong>Python :</strong>
+                    <ul>
+                        <li>Matplotlib pour les bases</li>
+                        <li>Seaborn pour les stats</li>
+                        <li>Plotly pour les graphiques interactifs</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Data storytelling</h3>
+            <p>Une bonne visualisation raconte une histoire.</p>
+            <p>Posez-vous toujours 3 questions :</p>
+            <ol>
+                <li>Quel est le message que je veux faire passer ?</li>
+                <li>À qui je m'adresse (experts, managers, public) ?</li>
+                <li>Est-ce que mes graphiques sont clairs, lisibles et utiles ?</li>
+            </ol>
+
+            <div class="bonne-pratique">
+                <p>Pour réussir vos visualisations :</p>
+                <p>Ne surchargez pas les graphes. Une bonne visualisation = simple, ciblée, lisible.</p>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="ouverture">
+            <h2>Ouverture vers des analyses avancées</h2>
+            <p>Cette section sert à introduire des sujets plus poussés pour celles et ceux qui souhaitent aller plus loin.</p>
+
+            <h3>Introduction à l'analyse prédictive</h3>
+            <p>Utiliser les données pour faire des prédictions à l'aide de modèles :</p>
+            <ul>
+                <li><strong>Régression :</strong> prédire une valeur numérique (ex : prix d'un logement)</li>
+                <li><strong>Classification :</strong> prédire une catégorie (ex : spam / non spam)</li>
+            </ul>
+            <p><strong>Outils :</strong> Python (scikit-learn), R, notebooks, outils AutoML</p>
+
+            <h3>Machine Learning – les bases</h3>
+            <ul>
+                <li><strong>Supervised learning :</strong> on apprend à partir d'exemples étiquetés</li>
+                <li><strong>Unsupervised learning :</strong> on cherche des structures cachées (clustering)</li>
+                <li><strong>Overfitting / underfitting :</strong> le modèle doit généraliser, pas mémoriser</li>
+                <li><strong>Importance des jeux de test / validation</strong></li>
+            </ul>
+
+            <h3>Feature Engineering</h3>
+            <p>C'est l'art de :</p>
+            <ul>
+                <li>Créer de nouvelles variables à partir des données existantes</li>
+                <li>Supprimer celles qui n'apportent rien</li>
+                <li>Transformer les données pour les rendre utilisables par les modèles</li>
+            </ul>
+
+            <h3>Éthique des données et biais algorithmiques</h3>
+            <ul>
+                <li>Données biaisées = décisions biaisées</li>
+                <li>Questions à se poser :
+                    <ul>
+                        <li>Qui est représenté ? Qui est oublié ?</li>
+                        <li>Est-ce que l'algorithme discrimine ?</li>
+                    </ul>
+                </li>
+                <li>Réglementation à respecter (RGPD, IA Act…)</li>
+            </ul>
+
+            <h3>Vers l'automatisation et les pipelines</h3>
+            <ul>
+                <li>Automatiser les étapes de traitement, d'analyse et de visualisation</li>
+                <li>Outils : Airflow, Dataiku, MLFlow, scripts Python</li>
+                <li>Notion de pipeline de données</li>
+            </ul>
+
+            <div class="note-importante">
+                <p>Pour continuer votre apprentissage :</p>
+                <ul>
+                    <li>Pratiquez régulièrement avec des datasets réels</li>
+                    <li>Participez à des compétitions comme celles de Kaggle</li>
+                    <li>Documentez-vous sur les bonnes pratiques et restez curieux</li>
+                </ul>
+            </div>
+        </section>
+
+        <hr>
+
+        <footer>
+            <div class="container">
+                <p>Guide pratique pour comprendre les fondamentaux de la data science</p>
+                <p>Vonos 2025 - Qualité et Gouvernance des Données</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
